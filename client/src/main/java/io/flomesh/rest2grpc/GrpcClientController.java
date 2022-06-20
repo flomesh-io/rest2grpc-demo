@@ -12,7 +12,7 @@ public class GrpcClientController {
     private GrpcClientService grpcClientService;
 
     @RequestMapping("/")
-    public String printMessage(@RequestParam(defaultValue = "Flomesh") String name) {
-        return grpcClientService.sendMessage(name);
+    public String printMessage(@RequestParam(defaultValue = "Flomesh") String name, @RequestParam(defaultValue = "0") int latency) {
+        return grpcClientService.sendMessage(name, latency);
     }
 }

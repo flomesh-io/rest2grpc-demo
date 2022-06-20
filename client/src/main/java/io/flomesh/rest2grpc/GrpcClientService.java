@@ -14,9 +14,9 @@ public class GrpcClientService {
     @GrpcClient("rest2grpc-server")
     private GreetingGrpc.GreetingBlockingStub greetingStub;
 
-    public String sendMessage(final String name) {
+    public String sendMessage(final String name, final int latency) {
         try {
-            final HelloReply response = this.greetingStub.sayHello(HelloRequest.newBuilder().setName(name).build());
+            final HelloReply response = this.greetingStub.sayHello(HelloRequest.newBuilder().setName(name).setLatency(latency).build());
             return response.getMessage();
         } catch (final StatusRuntimeException e) {
             return "FAILED with " + e.getStatus().getCode().name();

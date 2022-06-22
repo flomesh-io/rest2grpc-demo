@@ -11,8 +11,21 @@ public class GrpcClientController {
     @Autowired
     private GrpcClientService grpcClientService;
 
-    @RequestMapping("/")
+    @RequestMapping("/client-server")
     public String printMessage(@RequestParam(defaultValue = "Flomesh") String name, @RequestParam(defaultValue = "0") int latency) {
         return grpcClientService.sendMessage(name, latency);
+    }
+
+    @RequestMapping("/client-only")
+    public String returnMessage(@RequestParam(defaultValue = "Flomesh") String name, @RequestParam(defaultValue = "0") int latency) {
+        if (latency > 0) {
+            try {
+                Thread.sleep(latency);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return "Hello Client: " + name;
     }
 }

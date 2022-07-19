@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grpc-client
+  namespace: demo
+  annotations:
+    pipy.ingress.kubernetes.io/rewrite-target-from: ^/grpc/?
+    pipy.ingress.kubernetes.io/rewrite-target-to: /
+spec:
+  ingressClassName: pipy
+  rules:
+  - http:
+      paths:
+      - path: /grpc/*
+        pathType: Prefix
+        backend:
+          service:
+            name: rest2grpc-client
+            port:
+              number: 8080
+---
+kind: IngressBackend
+apiVersion: policy.openservicemesh.io/v1alpha1
+metadata:
+  name: grpc-client-backend
+  namespace: demo
+spec:
+  backends:
+  - name: rest2grpc-client
+    port:
+      number: 8080
+      protocol: http
+  sources:
+  - kind: Service
+    namespace: flomesh
+    name: ingress-pipy-controller

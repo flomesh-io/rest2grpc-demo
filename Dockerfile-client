@@ -8,6 +8,8 @@ COPY client/target/client-0.0.2.jar /client-0.0.2.jar
 
 COPY docker-entrypoint-client.sh /docker-entrypoint.sh
 
+RUN sleep 60
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["docker-run", "client"]
 

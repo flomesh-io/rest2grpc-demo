@@ -1,0 +1,17 @@
+FROM adoptopenjdk/openjdk11
+LABEL maintainer="Kevein Liu<kevein@flomesh.cn>"
+
+ENV CLIENT_LISTEN_PORT=8080
+
+COPY client/target/client-0.0.2.jar /client-0.0.2.jar
+
+COPY docker-entrypoint-client.sh /docker-entrypoint.sh
+
+RUN apt-get update \
+    && apt-get install -y iproute2 bind9-dnsutils
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["docker-run", "client"]
+
+STOPSIGNAL SIGQUIT
+

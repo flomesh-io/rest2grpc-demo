@@ -8,7 +8,7 @@ if [[ "$1" == "docker-run" ]]; then
     chmod o+w /proc/self/fd/1 || true
     chmod o+w /proc/self/fd/2 || true
 
-    exec java -jar -Dserver.port=${CLIENT_LISTEN_PORT}  /client-0.0.2.jar
+    exec java -jar -Dserver.port=${CLIENT_LISTEN_PORT} -Dgrpc.client.rest2grpc-server.address=${REST2GRPC_BACKEND} /client-0.0.2.jar
   fi
 fi
 

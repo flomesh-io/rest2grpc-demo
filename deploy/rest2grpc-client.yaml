@@ -26,6 +26,9 @@ spec:
       - image: keveinliu/rest2grpc-client:0.0.2
         imagePullPolicy: IfNotPresent
         name: rest2grpc-client
+        env:
+        - name: SERVER_ADDRESS
+          value: 'dns:/rest2grpc-service:9898'
         resources:
           limits:
             cpu: "1"

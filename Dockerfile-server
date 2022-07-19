@@ -7,6 +7,9 @@ COPY server/target/server-0.0.2.jar /server-0.0.2.jar
 
 COPY docker-entrypoint-server.sh /docker-entrypoint.sh
 
+RUN apt-get update \
+    && apt-get install -y iproute2 bind9-dnsutils
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["docker-run", "server"]
 

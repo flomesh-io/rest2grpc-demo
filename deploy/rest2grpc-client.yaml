@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: IfNotPresent
         name: rest2grpc-client
         env:
-        - name: SERVER_ADDRESS
+        - name: REST2GRPC_BACKEND
           value: 'dns:/rest2grpc-service:9898'
         resources:
           limits:

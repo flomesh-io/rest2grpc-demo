@@ -8,7 +8,7 @@ if [[ "$1" == "docker-run" ]]; then
     chmod o+w /proc/self/fd/1 || true
     chmod o+w /proc/self/fd/2 || true
 
-    exec java -jar -Dgrpc.server.port=${SERVER_LISTEN_PORT} /server-0.0.2.jar
+    exec java -javaagent:/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=rest2grpc-server -Dgrpc.server.port=${SERVER_LISTEN_PORT} -jar  /server-0.0.2.jar
   fi
 fi
 

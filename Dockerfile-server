@@ -2,8 +2,13 @@ FROM adoptopenjdk/openjdk11
 LABEL maintainer="Kevein Liu<kevein@flomesh.cn>"
 
 ENV SERVER_LISTEN_PORT=9898
+ENV OTEL_TRACES_EXPORTER=logging
+ENV OTEL_METRICS_EXPORTER=logging
+ENV OTEL_LOGS_EXPORTER=logging
 
 COPY server/target/server-0.0.2.jar /server-0.0.2.jar
+
+COPY otel/opentelemetry-javaagent.jar /opentelemetry-javaagent.jar
 
 COPY docker-entrypoint-server.sh /docker-entrypoint.sh
 
